@@ -1,0 +1,60 @@
+{% extends 'products.html' %}
+{% load static %}
+
+{% block content %}
+<div class="small-container cart-page">
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+        </tr>
+        {% if orders_not_exist %}
+        <tr class="no-products"><td style="text-align: center; padding: 60px;" colspan="3">
+        There is no any products
+        </td></tr>
+        {% endif %}
+        {% for order in orders %}
+        <tr>
+            <td>
+                <div class="cart-info">
+                    <img src="/{{ order.product.image }}">
+                    <div>
+                        <p>{{ order.product.name }}</p>
+                        <small>price: <span>${{order.product.price}}</span></small>
+                        <br>
+                        <a href="/removeorder/{{ order.id }}/{{ user.username }}"> Remove</a>
+                    </div>
+                </div>
+            </td>
+            <td><input type="number" value="{{ order.count }}" disabled></td>
+            <td class="finalcost">{% widthratio order.product.price 1 order.count %}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+    <div class="total-price">
+        <table>
+            <tr>
+                <td>Subtotal</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <div style="width: 100%; display: flex; justify-content: center;"><a class="btn"  >BUY</a></div>
+</div>
+<script>
+    setTimeout(function () {
+        costs = document.querySelectorAll('.finalcost');
+        // console.log(costs);
+        tot = 0;
+        for(let i=0;i < costs.length;i++){
+            tot += +costs[i].innerHTML;
+        }
+    
+        document.querySelector('.total-price table tr td:last-child').innerHTML = `$${tot}`;
+        console.log (document.querySelector('.cart-page div a'));
+        document.querySelector('.cart-page div a.btn').setAttribute('href', `/confirm/${tot}`);
+    }, 100);
+</script>
+{% endblock content %}

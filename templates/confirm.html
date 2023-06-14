@@ -1,0 +1,43 @@
+{% extends 'products.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .info-input {
+        width: 300px;
+        float: left;
+    }
+</style>
+<div class="small-container cart-page">
+    <form action="/send/{{ user.username }}/{{ total_price }}" method="POST">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td colspan="1">
+                    <input type="text" class="info-input" name="address" placeholder="Your Address...">
+                </td>
+                <td rowspan="2">
+                    <div class="total-price">
+                        <table style="border-top-color: transparent;">
+                            <tr style="display: flex; justify-content: space-between;">
+                                <td>price after shipping</td>
+                                <td>{{ total_price }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr><td colspan="1">
+                <input  type="text" class="info-input" name="phone" placeholder="Your phone number...">
+            </td></tr>
+        </table>
+        <input type="submit" class="btn" value="CONFIRM">
+    </form>
+</div>
+
+{% endblock content %}

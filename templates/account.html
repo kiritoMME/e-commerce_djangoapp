@@ -1,0 +1,61 @@
+{% extends 'products.html' %}
+{% load static %}
+
+{% block content %}
+<div class="account-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <img src="images/image1.png" alt="">
+            </div>
+            <div class="col-2">
+                <div class="form-container">
+                    <div class="form-btn">
+                        <span onclick="login()">Login</span>
+                        <span onclick="register()">Signup</span>
+                        <hr id="indicator">
+                    </div>
+                    {% for m in messages %}
+                    {% if m == "thanks for register, plz login" %}
+                    <h5 style="color: rgb(7, 231, 15);">{{ m }}</h5>
+                    {% else %}
+                    <h5 style="color: red;">{{ m }}</h5>
+                    {% endif %}
+                    {% endfor %}
+                    <form id="loginForm" action="login" method="POST">
+                        {% csrf_token %}
+                        <input name="username" type="text" placeholder="Username">
+                        <input name="password" type="password" placeholder="Password">
+                        <button type="submit" class="btn">Login</button>
+                        <a href="">Forgot Password</a>
+                    </form>
+                    <form id="regForm" action="signup" method="POST">
+                        {% csrf_token %}
+                        <input name="username" type="text" placeholder="Username">
+                        <input name="email" type="email" placeholder="Email">
+                        <input name="password" type="password" placeholder="Password">
+                        <input name="password2" type="password" placeholder="Repeat your Password">
+                        <button type="submit" class="btn">Signup</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var indicator = document.getElementById("indicator");
+    var regForm = document.getElementById("regForm");
+    var loginForm = document.getElementById("loginForm");
+
+    function register() {
+        regForm.style.transform = "translateX(0px)";
+        loginForm.style.transform = "translateX(0px)";
+        indicator.style.transform = "translateX(100px)";
+    }
+    function login() {
+        regForm.style.transform = "translateX(300px)";
+        loginForm.style.transform = "translateX(300px)";
+        indicator.style.transform = "translateX(0px)";
+    }
+</script>
+{% endblock content %}

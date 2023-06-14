@@ -1,0 +1,106 @@
+{% extends 'products.html' %}
+{% load static %}
+
+{% block content %}
+<!-- single product details -->
+
+<div class="small-container single-product">
+    <form action="/addtocart/{{ product.id }}/{{ user.username }}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-2">
+                {% if product.gallery_1 == None %}
+                <img src="/{{ product.image }}" width="100%" class="small-img">
+                {% else %}
+                <img src="/{{ product.gallery_1 }}" width="100%" id="productImg">
+                {% endif %}
+                <div class="small-img-row">
+
+                    {% for gallery in product_gallery %}
+                    <div class="small-img-col">
+                        {% if gallery == None %}
+                        <img src="/{{ product.image }}" width="100%" class="small-img">
+                        {% else %}
+                        <img src="/{{ gallery }}" width="100%" class="small-img">
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-2">
+                <p>Home | T-Shirt</p>
+                <h1>{{ product.name }}</h1>
+                <h4>${{ product.price }}</h4>
+                <select name="size">
+                    {% for size in product.sizes|split:"," %}
+                    <option>{{ size }}</option>
+                    {% endfor %}
+                </select>
+                <input type="number" name="count" value="1" min="1">
+                {% if user.is_authenticated %}
+                <input type="submit" class="btn" value="Add To Cart">
+                {% else %}
+                <a href="/account"><input type="button" class="btn" value="Login to buy"></a>
+                {% endif %}
+                <h3>Product Details <i class="fa fa-indent"></i></h3>
+                <br>
+                <p>{{ product.description    }}</p>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- title -->
+
+<div class="small-container">
+    <div class="row row-2">
+        <h2>Related Products</h2>
+        <p>View More</p>
+    </div>
+</div>
+
+<!-- products -->
+<div class="small-container">
+    <div class="row">
+        {% for p in all_products %}
+        {% if forloop.counter0 < 4 %} 
+        <div class="col-4">
+            <a href="/product_details/{{ p.id }}"><img src="/{{ p.image }}">
+                <h4>{{ product.name }}</h4>
+            </a>
+            <div class="rating">
+                {% for i in product.rate_text %}
+
+                {% if i == 'F' %}
+                <i class="fa fa-star" aria-hidden="true"></i>
+                {% else %}
+                <i class="fa fa-star" style="color: #999;" aria-hidden="true"></i>
+                {% endif %}
+
+                {% endfor %}
+            </div>
+            <p>${{ product.price }}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    var ProductImg = document.getElementById("productImg");
+    var smallImg = document.getElementsByClassName("small-img");
+
+    smallImg[0].onclick = function () {
+        ProductImg.src = smallImg[0].src;
+    }
+    smallImg[1].onclick = function () {
+        ProductImg.src = smallImg[1].src;
+    }
+    smallImg[2].onclick = function () {
+        ProductImg.src = smallImg[2].src;
+    }
+    smallImg[3].onclick = function () {
+        ProductImg.src = smallImg[3].src;
+    }
+</script>
+{% endblock content %}
