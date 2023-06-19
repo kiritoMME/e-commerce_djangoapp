@@ -9,7 +9,7 @@
     }
 </style>
 <div class="small-container cart-page">
-    <form action="/send/{{ user.username }}/{{ total_price }}" method="POST">
+    <form action="/send" method="POST">
         {% csrf_token %}
         <table>
             <tr>
@@ -25,7 +25,7 @@
                     <div class="total-price">
                         <table style="border-top-color: transparent;">
                             <tr style="display: flex; justify-content: space-between;">
-                                <td>price after shipping</td>
+                                <td>price without shipping</td>
                                 <td>{{ total_price }}</td>
                             </tr>
                         </table>

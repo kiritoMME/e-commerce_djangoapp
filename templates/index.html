@@ -25,20 +25,24 @@
                 <nav>
                     <ul id="MenuItems">
                         <li><a href="/">Home</a></li>
-                        <li><a href="/products">Products</a></li>
+                        <li><a href="products">Products</a></li>
                         <!-- <li><a href="">About</a></li>
                         <li><a href="">Contact</a></li> -->
                         {% if user.is_authenticated %}
+                        <li><a href="confirmed">Confirmed Orders</a></li>
+                        {% if user.is_superuser %}
+                        <li><a href="control_panel">Control Panel</a></li>
+                        {% endif %}
                         <li><a href="logout">Logout</a></li>
                         {% else %}
-                        <li><a href="account">Signup & Login</a></li>
+                        <li><a href="account/signup">Signup & Login</a></li>
                         {% endif %}
 
                     </ul>
                     {% if user.is_authenticated %}
-                    <a href="/cart/{{ user.username }}"><img src="{% static 'images/cart.png' %}" width="30px" height="30px"></a>
+                    <a href="/cart"><img src="{% static 'images/cart.png' %}" width="30px" height="30px"></a>
                     {% else %}
-                    <a href="/account"><img src="{% static 'images/cart.png' %}" width="30px" height="30px"></a>
+                    <a href="/account/signup"><img src="{% static 'images/cart.png' %}" width="30px" height="30px"></a>
                     {% endif %}
                     <img src="{% static 'images/menu.png' %}" class="menu-icon" onclick="menutoggle()">
                 </nav>
@@ -52,7 +56,7 @@
                     {% endif %}
                     <p>Success is not always about greatness. Its about consistency. Consistent <br>hard work gains
                         Success. Greatness wildl come.</p>
-                    <a href="" class="btn">Explore Now &#8594;</a>
+                    <a href="/products" class="btn">Explore Now &#8594;</a>
                 </div>
                 <div class="col-2">
                     <img src="{% static 'images/image1.png' %}">
@@ -88,17 +92,7 @@
                 <a href="product_details/{{ product.id }}"><img src="{{ product.image }}">
                     <h4>{{ product.name }}</h4>
                 </a>
-                <div class="rating">
-                    {% for i in product.rate_text %}
-
-                    {% if i == 'F' %}
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    {% else %}
-                    <i class="fa fa-star" style="color: #999;" aria-hidden="true"></i>
-                    {% endif %}
-
-                    {% endfor %}
-                </div>
+                {% include 'rate.html' %}
                 <p>${{ product.price }}</p>
             </div>
             {% endif %}
@@ -141,7 +135,7 @@
                     <p>Exclusively Available on RedStore</p>
                     <h1>{{ offer.name }}</h1>
                     <small>{{ offer.description }}</small>
-                    <a href="" class="btn">Buy Now &rightarrow;</a>
+                    <a href="product_details/{{ offer.id }}" class="btn">Buy Now &rightarrow;</a>
                 </div>
             </div>
         </div>

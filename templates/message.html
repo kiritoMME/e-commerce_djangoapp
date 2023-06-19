@@ -1,0 +1,12 @@
+{% extends 'products.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="message-container">
+    <div class="message">
+        <div class="text">{{ message }}</div>
+        <a class="btn" href="/{{ direct_link }}"> Countinue </a>
+    </div>
+</div>
+{% endblock %}

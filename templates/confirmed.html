@@ -1,0 +1,51 @@
+{% extends 'products.html' %}
+{% load static %}
+
+{% block content %}
+<div class="small-container confirmed-page">
+    <hr>
+    <table class="orders-table">
+        {% if conf_orders_not_exist %}
+        <tr class="no-products"><td style="text-align: center; padding: 60px;" colspan="3">
+        There is no any confirmed orders.
+        </td></tr>
+        {% endif %}
+
+        {% for conf_order in all_conf_orders %}
+        <tr class="orders-box">
+            <td>
+                {% if forloop.counter0 != 0  %} <hr style="height: 2px;background-color: black;"> {% endif %}
+                <div class="order-and-buttons">
+                    <h3>Order {{ forloop.counter }}</h3>
+                    <h5> Status: <span>{{ conf_order.status }}</span></h5>
+                </div>
+                <div class="order-box">
+                    <hr style="height: 4px;">
+                    <table>
+                        {% for order in conf_order.orders.all %}
+                        <tr><td>
+                            <div class="cart-info">
+                                <div class="image"><img src="/{{ order.product.image }}"></div>
+                                <div>
+                                    <p>{{ order.product.name }}</p>
+                                    <small>size: <span>{{order.size}}</span></small>
+                                    <br>
+                                    <small>count: <span>{{order.count}}</span></small>
+                                    <br>
+                                    <small>price: <span>${{ order.price }}</span></small>
+                                    <br>
+                                    <small>total price: <span>${% widthratio order.product.price 1 order.count %}</span></small>
+                                </div>
+                            </div>
+                        </td></tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <hr>
+</div>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'products.html' %}
+{% load static %}
+
+{% block content %}
+<!-- single product details -->
+
+<div class="small-container single-product single-admin-product">
+    <form action="/edit_product/{{ id }}" method="POST" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <!-- <div class="row">
+            <div class="col-2">
+                <div class="input-file-container">
+                    {% for gallery in product_gallery %}
+                    <div class="image-upload">
+                        <label for="file-input">
+                            <img name="gallery_{{ forloop.counter0 }}" src="/{{ gallery }}" class="small-img" />
+                        </label>
+                        <input type="file" id="file-input">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-2">
+                <label for="name">Name: </label> <input type="text" name="name" value="{{ product.name }}">
+                <br><br><br>
+                <label for="pice">Price: </label> <input type="number" name="price" value="{{ product.price }}">
+                <br><br><br>
+                <label for="sizes">sizes: </label><input type="text" placeholder="sizes" name="sizes" value="sizes">
+                <br><br><br>
+                <label for="description">Description: </label><textarea name="description" cols="30" rows="10" >{{ product.description }}</textarea>
+                <label for=""></label><input type="checkbox" name="" id="">
+                <input type="checkbox" name="" id="">
+            </div>
+        </div> -->
+        <div class="submit-container">
+            <input type="submit" class="btn" value="Save">
+            <a href="/delete_product/{{ id }}" style="margin-left: 10px"><input type="button" class="btn" value="Delete" ></a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

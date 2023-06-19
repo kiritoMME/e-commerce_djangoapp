@@ -16,7 +16,7 @@
                         <hr id="indicator">
                     </div>
                     {% for m in messages %}
-                    {% if m == "thanks for register, plz login" %}
+                    {% if m|is_succ %}
                     <h5 style="color: rgb(7, 231, 15);">{{ m }}</h5>
                     {% else %}
                     <h5 style="color: red;">{{ m }}</h5>
@@ -42,6 +42,7 @@
         </div>
     </div>
 </div>
+
 <script>
     var indicator = document.getElementById("indicator");
     var regForm = document.getElementById("regForm");
@@ -57,5 +58,6 @@
         loginForm.style.transform = "translateX(300px)";
         indicator.style.transform = "translateX(0px)";
     }
+    login()
 </script>
 {% endblock content %}

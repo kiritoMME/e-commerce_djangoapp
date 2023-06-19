@@ -1,0 +1,11 @@
+<div class="rating">
+    {% for i in p.rate_text %}
+
+    {% if i == 'F' %}
+    <i class="fa fa-star" aria-hidden="true"></i>
+    {% else %}
+    <i class="fa fa-star" style="color: #999;" aria-hidden="true"></i>
+    {% endif %}
+
+    {% endfor %}
+</div>

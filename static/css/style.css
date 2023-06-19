@@ -305,7 +305,8 @@ select:focus{
     margin-top: 20px;
 }
 .single-product input[type='number']{
-    width: 50px;
+    text-align: center;
+    width: 65px;
     height: 40px;
     padding-left: 10px;
     font-size: 20px;
@@ -380,8 +381,191 @@ th:last-child{
     text-align: right;
 }
 
-/* end of cart  items */
+/* end of cart items */
 
+/* message */
+.message-container{
+    height: calc(100vh - 396px);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    /* background-color: #563434; */
+}
+.message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 20px;
+    border-radius: 12px;
+    border: 3px solid #ff523b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #efefef;
+}
+.message .text{
+    text-align: center;
+    padding: 6px 3px;
+    font-size: 22px;
+}
+.message a{
+    margin: 25px 0 0;
+}
+/* end of message */
+
+
+/* confirmed page */
+.confirmed-page{
+    margin: 80px auto;
+}
+.confirmed-page hr, .main-hr{
+    margin: 10px;
+    background-color: #ff523b;
+    height: 10px;
+}
+.confirmed-page table{
+    padding: 22px;
+    margin: 0 auto;
+    width: 90%;
+}
+.confirmed-page h3{
+    text-align: left;
+    padding: 22px;
+    margin: 0 auto;
+    width: 90%;
+}
+.confirmed-page .cart-info{
+    justify-content: space-around;
+    align-items: center;
+}
+.confirmed-page .cart-info div{
+    
+}
+/* endof confirmed page */
+/* confirmed admin page */
+.confirmed-admin-page select{
+    margin: 15px 64px -5px;
+}
+.order-and-buttons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.order-and-buttons h3{
+    width: fit-content;
+    margin: 0;
+    font-size: 22px;
+}
+.order-and-buttons h5{
+    color: #777;
+}
+.confirmed-admin-page .order-and-buttons .btns{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.confirmed-admin-page .order-and-buttons .btns .btn2{
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    font-size: 16px;
+    opacity: 1;
+    transition: 0.3s;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 7px 18px;
+    width: fit-content;
+    height: fit-content;
+    border: 1.5px solid transparent;
+}
+.confirmed-admin-page .order-and-buttons .btns .btn2:hover{
+    opacity: 0.4;
+}
+.confirmed-admin-page .order-and-buttons .btns .btn2:disabled{
+    opacity: 0.4;
+    cursor: auto;
+}
+.confirmed-admin-page .confirmed-page{
+    border: 1px solid black;
+}
+.confirmed-admin-page .confirmed-page .order-heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.confirmed-admin-page .confirmed-page .order-heading input{
+    padding: 20px;
+    
+}
+.confirmed-admin-page .confirmed-page .order-heading span{
+    cursor: pointer;
+}
+.confirmed-admin-page .confirmed-page span i{
+    font-size: 20px;
+    font-weight: 900;
+    transition: 0.1s;
+}
+.confirmed-admin-page .confirmed-page .orders-table{
+    display: none;
+}
+/* endof confirmed admin page */
+/* contorl panel page */
+.control-panel{
+    margin: 80px auto;
+}
+.control-panel .row{
+    gap: 30px;
+}
+.control-panel .col-4{
+    font-size: 40px;
+    text-align: center;
+    font-weight: bold;
+    background-color: #eee;
+    border-radius: 6px;
+    border: 3px solid black;
+    flex-basis: 30%;
+}
+.control-panel .control-cart{
+    padding: 100px 0;
+}
+/* endof contorl panel page */
+/* add-new-product-container */
+.add-new-product-container, .submit-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 20px
+}
+.add-new-product-container input{
+    font-size: 20px;
+    font-weight: bold;
+    padding: 11px 38px;
+    /* background-image: url('../../static/') ; */
+}
+/* endof add-new-product-container */
+/* single-admin-product */
+.single-admin-product .input-file-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
+.single-admin-product .input-file-container .image-upload .small-img{
+    height: 120px;
+}
+.single-admin-product .input-file-container .image-upload .small-img{
+    /* height: 50px; */
+}
+.single-admin-product .input-file-container .image-upload input{
+    display: none;
+}
+/* endof single-admin-product */
 .account-page{
     padding: 50px 0;
     background: radial-gradient(#fff,#ffd6f6);
@@ -463,6 +647,18 @@ form a{
 
 
 
+@media only screen and (max-width:1200px) {
+    .confirmed-page{
+        max-width: calc(100% - 70px);
+    }
+}
+
+@media only screen and (max-width:1000px) {
+    .control-panel .control-cart{
+        font-size: 32px;
+    }
+}
+
 @media only screen and (max-width:800px) {
     nav ul{
         position: absolute;
@@ -486,6 +682,11 @@ form a{
         display: inline-block;
         cursor: pointer;
     }
+    .confirmed-admin-page .order-and-buttons .btns{
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
 }
 @media only screen and (max-width:600px){
     .row{
@@ -506,5 +707,14 @@ form a{
     }
     .cart-info p{
         display: none;
+    }
+    .order-and-buttons h3{
+        padding-left: 0;
+    }
+    .confirmed-admin-page td img{
+        margin: 0;
+    }
+    .confirmed-page{
+        padding: 0 10px;
     }
 }

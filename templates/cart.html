@@ -23,7 +23,7 @@
                         <p>{{ order.product.name }}</p>
                         <small>price: <span>${{order.product.price}}</span></small>
                         <br>
-                        <a href="/removeorder/{{ order.id }}/{{ user.username }}"> Remove</a>
+                        <a href="/removeorder/{{ order.id }}"> Remove</a>
                     </div>
                 </div>
             </td>
@@ -41,7 +41,7 @@
             </tr>
         </table>
     </div>
-    <div style="width: 100%; display: flex; justify-content: center;"><a class="btn"  >BUY</a></div>
+    <div style="width: 100%; display: flex; justify-content: center;"><a href="/confirm" class="btn"  >BUY</a></div>
 </div>
 <script>
     setTimeout(function () {
@@ -53,8 +53,6 @@
         }
     
         document.querySelector('.total-price table tr td:last-child').innerHTML = `$${tot}`;
-        console.log (document.querySelector('.cart-page div a'));
-        document.querySelector('.cart-page div a.btn').setAttribute('href', `/confirm/${tot}`);
     }, 100);
 </script>
 {% endblock content %}

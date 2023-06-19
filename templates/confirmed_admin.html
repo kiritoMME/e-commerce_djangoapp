@@ -1,0 +1,107 @@
+{% extends 'products.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="confirmed-admin-page">
+    <select class="sorts" onchange="update()">
+        <option value="all">All</option>
+        <option value="pending">Pending</option>
+        <option value="shipping">Shipping</option>
+        <option value="delivering">Delivering</option>
+        <option value="done">Done</option>
+        <option value="deleted">Deleted</option>
+    </select>
+    {% for user,all_conf_orders in all_users_conf_orders.items %}
+    <div class="small-container confirmed-page">
+        <div class="order-heading {{user}}orderheading">
+            <h1>{{user}}</h1>
+            <span onclick="hide(`.{{ user }}order`)"><i style="rotate: 180deg;" class="fa fa-angle-down"></i></span>
+        </div>
+        <hr>
+        <!-- <table class="orders-table {{user}}order" style="display: table;"> -->
+        <table class="orders-table {{user}}order" style="display: table;">
+            {% for conf_order in all_conf_orders %}
+            <tr class="orders-box" stat="{{ conf_order.status }}">
+                <td>
+                    {% if forloop.counter0 != 0  %} <hr style="height: 2px;background-color: black;"> {% endif %}
+                    <div class="order-and-buttons">
+                        <h3>Order {{ forloop.counter }} </h3>
+                        <h5> Status: <span>{{ conf_order.status }}</span></h5>
+                        <div class="btns">
+                            <a href="/edit_confirmed_order/{{ conf_order.id }}/pending"><input class="btn2" type="button" value="pending" style="background-color: #888;" stat="{{ conf_order.status|is_eq:'pending' }}"></a>
+                            <a href="/edit_confirmed_order/{{ conf_order.id }}/shipping"><input class="btn2" type="button" value="shipping" style="background-color: #e87a3a;" stat="{{ conf_order.status|is_eq:'shipping' }}"></a>
+                            <a href="/edit_confirmed_order/{{ conf_order.id }}/delivering"><input class="btn2" type="button" value="delivering" style="background-color: green;" stat="{{ conf_order.status|is_eq:'delivering' }}"></a>
+                            <a href="/edit_confirmed_order/{{ conf_order.id }}/done"><input class="btn2" type="button" value="done" style="background-color: #22dd08;" stat="{{ conf_order.status|is_eq:'done' }}"></a>
+                            <a href="/edit_confirmed_order/{{ conf_order.id }}/deleted"><input class="btn2" type="button" value="deleted" style="background-color: red;" stat="{{ conf_order.status|is_eq:'deleted' }}"></a>
+                        </div>
+                    </div>
+                    <div class="order-box">
+                        <hr style="height: 4px;">
+                        <table>
+                            {% for order in conf_order.orders.all %}
+                            <tr><td>
+                                <div class="cart-info">
+                                    <div class="image"><img src="/{{ order.product.image }}"></div>
+                                    <div>
+                                        <p>{{ order.product.name }}</p>
+                                        <small>size: <span>{{order.size}}</span></small>
+                                        <br>
+                                        <small>count: <span>{{order.count}}</span></small>
+                                        <br>
+                                        <small>price: <span>${{ order.price }}</span></small>
+                                        <br>
+                                        <small>total price: <span>${% widthratio order.product.price 1 order.count %}</span></small>
+                                    </div>
+                                </div>
+                            </td></tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endfor %}
+</div>
+<script>
+    function hide(name){
+        el = document.querySelector(name);
+        el2 = document.querySelector(`${name}heading +hr`);
+        
+        if (el.style.display == 'none'){
+            document.querySelector(`${name}heading i`).style.rotate = '180deg'
+            el.style.display = 'table';
+            el2.style.display = 'block';
+        }else{
+            document.querySelector(`${name}heading i`).style.rotate = '0deg'
+            el.style.display = 'none';
+            el2.style.display = 'none';
+        }
+    }
+    
+    setTimeout( () => {
+        els =  document.querySelectorAll('.btns input[stat="True"]');
+        for(let i=0;i<els.length;i++){
+            els[i].setAttribute('disabled','');
+        }
+    }, 10);
+    function update(){
+        all_orders = document.querySelectorAll('.orders-box');
+        stat = document.querySelector('.sorts').value;
+        console.log(all_orders)
+        for (let i = 0; i < all_orders.length; i++) {
+            o = all_orders[i]
+            tp = o.getAttribute('stat');
+            console.log(tp)
+            console.log(stat)
+            if(stat == 'all')  o.style.display = 'table-row';
+            else if(tp != stat)  o.style.display = 'none';
+            else  o.style.display = 'table-row';
+        }
+    }
+    update()
+</script>
+{% endblock %}
